@@ -31,7 +31,7 @@ def takecommand():
         query = r.recognize_google(audio, language = "en-in")
         print(f"user said: {query}")
         eel.DisplayMessage(query)
-        time.sleep(2)
+        time.sleep(1)
     except Exception as e:
         return ""
 
