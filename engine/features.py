@@ -192,7 +192,7 @@ def whatsApp(mobile_no, message, flag, name):
     subprocess.run(full_command, shell=True)
 
     # ⚡ Wait longer so chat loads
-    time.sleep(7)
+    time.sleep(5)
 
     # First focus WhatsApp window with Ctrl+J
     pyautogui.hotkey('ctrl', 'j')
@@ -201,9 +201,10 @@ def whatsApp(mobile_no, message, flag, name):
     # Tab navigation
     for i in range(1, target_tab):
         pyautogui.hotkey('tab')
-        time.sleep(0.2)   # small delay for stability
+        time.sleep(0)   # small delay for stability
 
     # Press Enter
     pyautogui.hotkey('enter')
 
     speak(jarvis_message)
+

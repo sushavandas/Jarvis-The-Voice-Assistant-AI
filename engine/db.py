@@ -37,7 +37,7 @@ cursor = con.cursor()
 # con.close()
 
 
-#for add name and number one by one insert
+## for add name and number one by one insert
 # query = "INSERT INTO contacts VALUES (null,'riya das', '9051849174', 'null')"
 # cursor.execute(query)
 # con.commit()
@@ -48,3 +48,17 @@ cursor = con.cursor()
 # cursor.execute("SELECT mobile_no FROM contacts WHERE LOWER(name) LIKE ? OR LOWER(name) LIKE ?", ('%' + query + '%', query + '%'))
 # results = cursor.fetchall()
 # print(results[0][0])
+
+
+# # Example: delete ids 21, 22, 23
+# ids_to_delete = ()
+# query = f"DELETE FROM contacts WHERE id IN ({','.join(['?']*len(ids_to_delete))})"
+# cursor.execute(query, ids_to_delete)
+# con.commit()
+
+# ##add Name and NUmber
+# name = "Rahul Sharma"
+# mobile = "9876543210"
+# cursor.execute("INSERT INTO contacts (id, name, mobile_no, email) VALUES (NULL, ?, ?, NULL)", (name, mobile))
+# con.commit()
+
