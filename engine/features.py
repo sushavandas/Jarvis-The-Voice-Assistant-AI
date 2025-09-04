@@ -97,6 +97,7 @@ def hotword():
                 autogui.press("j")
                 time.sleep(2)
                 autogui.keyUp("win")
+
                 
     except:
         if porcupine is not None:
@@ -126,21 +127,22 @@ def findContact(query):
     except:
         speak('not exist in contacts')
         return 0, 0
-    
+
+
 # def whatsApp(mobile_no, message, flag, name):
     
 
 #     if flag == 'message':
-#         target_tab = 17
+#         target_tab = 12
 #         jarvis_message = "message send successfully to "+name
 
 #     elif flag == 'call':
-#         target_tab = 12
+#         target_tab = 7
 #         message = ''
 #         jarvis_message = "calling to "+name
 
 #     else:
-#         target_tab = 11
+#         target_tab = 6
 #         message = ''
 #         jarvis_message = "staring video call with "+name
 
@@ -168,6 +170,9 @@ def findContact(query):
 #     speak(jarvis_message)
 
 
+
+
+
 def whatsApp(mobile_no, message, flag, name):
     if flag == 'message':
         target_tab = 1 #ok
@@ -192,7 +197,7 @@ def whatsApp(mobile_no, message, flag, name):
     subprocess.run(full_command, shell=True)
 
     # ⚡ Wait longer so chat loads
-    time.sleep(5)
+    time.sleep(6)
 
     # First focus WhatsApp window with Ctrl+J
     pyautogui.hotkey('ctrl', 'j')
