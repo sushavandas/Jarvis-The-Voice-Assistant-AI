@@ -12,10 +12,11 @@ import pvporcupine
 import pyaudio
 import struct
 import time
-from engine.helper import extract_yt_term, remove_words
+from engine.helper import extract_yt_term, markdown_to_text ,remove_words
 from shlex import quote
 import subprocess
 import pyautogui
+from engine.config import ASSISTANT_NAME, LLM_KEY
 
 # Playing assiatnt sound function
 
@@ -210,6 +211,24 @@ def whatsApp(mobile_no, message, flag, name):
 
     # Press Enter
     pyautogui.hotkey('enter')
-
     speak(jarvis_message)
+
+import google.generativeai as genai
+def geminai(query):
+    try:
+        query = query.replace(ASSISTANT_NAME, "")
+        query = query.replace("search", "")
+        #Set your API key
+        genai.configure(api_key=LLM_KEY)
+
+        #select a model
+        model = genai.GenerativeModel("gemini-2.0-flash")
+
+        #Generate a response
+        response = model.generate_content(query)
+        filter_text = markdown_to_text(response.text)
+        speak(filter_text)
+    except Exception as e:
+        print("Error:", e)
+        
 

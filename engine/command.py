@@ -6,7 +6,7 @@ import time
 def speak(text):
     engine = pyttsx3.init('sapi5')
     voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[0].id)
+    engine.setProperty('voice', voices[1].id)
     engine.setProperty('rate', 180)
     eel.DisplayMessage(text)
     engine.say(text)
@@ -75,7 +75,8 @@ def allCommands(message=1):
                     
                 whatsApp(contact_no, query, message, name)
         else:
-            print("not run")
+            from engine.features import geminai
+            geminai(query)
     except:
         print("error")
 

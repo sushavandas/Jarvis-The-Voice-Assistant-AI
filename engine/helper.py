@@ -1,4 +1,8 @@
 import re
+import markdown2
+from bs4 import BeautifulSoup
+
+
 
 def extract_yt_term(command):
     # Define a regular expression pattern to capture the song name
@@ -19,3 +23,8 @@ def remove_words(input_string, words_to_remove):
     result_string = ' '.join(filtered_words)
 
     return result_string
+
+def markdown_to_text(md):
+    html = markdown2.markdown(md)
+    soup = BeautifulSoup(html, "html.parser")
+    return soup.get_text().strip()
