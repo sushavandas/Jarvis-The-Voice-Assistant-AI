@@ -32,4 +32,4 @@ From launching apps to making calls and chatting, Jarvis brings AI and automatio
 ## Screenshot / Recording
 1] AI Assistant Interface
 
-https://github.com/user-attachments/assets/cb4989fd-b8ca-4def-9478-9299c1ca7d02
+https://github.com/user-attachments/assets/cb4989fd-b8ca-4def-9478-9299c1ca7d02.gif
