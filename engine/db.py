@@ -51,10 +51,10 @@ cursor = con.cursor()
 
 
 # # Example: delete ids 21, 22, 23
-# ids_to_delete = (34,278)
-# query = f"DELETE FROM contacts WHERE id IN ({','.join(['?']*len(ids_to_delete))})"
-# cursor.execute(query, ids_to_delete)
-# con.commit()
+ids_to_delete = (65,430)
+query = f"DELETE FROM contacts WHERE id IN ({','.join(['?']*len(ids_to_delete))})"
+cursor.execute(query, ids_to_delete)
+con.commit()
 
 # ##add Name and NUmber
 # name = "Rahul Sharma"
