@@ -28,3 +28,8 @@ From launching apps to making calls and chatting, Jarvis brings AI and automatio
 - **HTML/CSS/JS** – Interactive frontend
 
 ---
+
+## Screenshot / Recording
+1] AI Assistant Interface
+
+https://github.com/user-attachments/assets/cb4989fd-b8ca-4def-9478-9299c1ca7d02
