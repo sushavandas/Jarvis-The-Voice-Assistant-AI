@@ -14,7 +14,7 @@ cursor = con.cursor()
 # query = "CREATE TABLE IF NOT EXISTS web_command(id integer primary key, name VARCHAR(100), url VARCHAR(1000))"
 # cursor.execute(query)
 
-# query = "INSERT INTO web_command VALUES (null,'youtube', 'https://www.youtube.com/')"
+# query = "INSERT INTO web_command VALUES (null,'instagram', 'https://www.instagram.com/')"
 # cursor.execute(query)
 # con.commit()
 

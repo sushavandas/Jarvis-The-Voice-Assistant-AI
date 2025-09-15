@@ -6,7 +6,7 @@ import time
 def speak(text):
     engine = pyttsx3.init('sapi5')
     voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[1].id)
+    engine.setProperty('voice', voices[0].id)
     engine.setProperty('rate', 180)
     eel.DisplayMessage(text)
     engine.say(text)
@@ -27,8 +27,8 @@ def takecommand():
         audio = r.listen(source, 10, 6)
     
     try:
-        print("recognizing")
-        eel.DisplayMessage("recognizing")
+        print("recognizing....")
+        eel.DisplayMessage("recognizing....")
         query = r.recognize_google(audio, language = "en-in")
         print(f"user said: {query}")
         eel.DisplayMessage(query)
