@@ -20,3 +20,11 @@ From launching apps to making calls and chatting, Jarvis brings AI and automatio
 - 🌤️ Check Weather Updates
 
 ---
+
+## 🛠️ Tech Stack
+
+- **Python** – Core logic
+- **Eel** – Web-Python integration
+- **HTML/CSS/JS** – Interactive frontend
+
+---
