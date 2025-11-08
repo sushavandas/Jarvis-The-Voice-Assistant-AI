@@ -7,7 +7,7 @@ cursor = con.cursor()
 # query = "CREATE TABLE IF NOT EXISTS sys_command(id integer primary key, name VARCHAR(100), path VARCHAR(1000))"
 # cursor.execute(query)
 
-# query = "INSERT INTO sys_command VALUES (null,'android studio\', 'C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe')"
+# query = "INSERT INTO sys_command VALUES (null,'excel\', 'C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Office\\Microsoft Excel 2010.lnk')"
 # cursor.execute(query)
 # con.commit()
 
@@ -18,8 +18,12 @@ cursor = con.cursor()
 # cursor.execute(query)
 # con.commit()
 
+# query = "INSERT INTO web_command VALUES (null,'gmail', 'https://mail.google.com/mail/u/0/#inbox')"
+# cursor.execute(query)
+# con.commit()
+
 # Create a table with the desired columns
-# cursor.execute('''CREATE TABLE IF NOT EXISTS contacts (id integer primary key, name VARCHAR(200), mobile_no VARCHAR(255), email VARCHAR(255) NULL)''')
+# cursor.execute('''CREATE TABLE IF NOT EXISTS contacts (id integer primary key, name VARCHAR(200), mobile_no VARCHAR(255), email VARCHAR(255) NULL, address VARCHAR(255) NULL)''')
 
 # Specify the column indices you want to import (0-based index)
 # Example: Importing the 1st and 3rd columns
@@ -51,14 +55,21 @@ cursor = con.cursor()
 
 
 # # Example: delete ids 21, 22, 23
-ids_to_delete = (65,430)
-query = f"DELETE FROM contacts WHERE id IN ({','.join(['?']*len(ids_to_delete))})"
-cursor.execute(query, ids_to_delete)
-con.commit()
+# ids_to_delete = (65,430)
+# query = f"DELETE FROM contacts WHERE id IN ({','.join(['?']*len(ids_to_delete))})"
+# cursor.execute(query, ids_to_delete)
+# con.commit()
 
 # ##add Name and NUmber
 # name = "Rahul Sharma"
 # mobile = "9876543210"
 # cursor.execute("INSERT INTO contacts (id, name, mobile_no, email) VALUES (NULL, ?, ?, NULL)", (name, mobile))
 # con.commit()
+
+# Adding personal info table
+# query = "CREATE TABLE IF NOT EXISTS info(name VARCHAR(100), designation VARCHAR(50),mobileno VARCHAR(40), email VARCHAR(200), city VARCHAR(300))"
+# cursor.execute(query)
+
+# Add Column in contacts table
+# cursor.execute("ALTER TABLE contacts ADD COLUMN address VARCHAR(255)")
 
