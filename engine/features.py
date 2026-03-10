@@ -180,7 +180,7 @@ def geminai(query):
         genai.configure(api_key=LLM_KEY)
 
         #select a model
-        model = genai.GenerativeModel("gemini-2.5-flash")
+        model = genai.GenerativeModel("gemini-2.5-flash-lite")
 
         #Generate a response
         response = model.generate_content(query)
