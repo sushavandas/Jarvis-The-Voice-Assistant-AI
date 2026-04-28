@@ -171,21 +171,43 @@ def whatsApp(mobile_no, message, flag, name):
     pyautogui.hotkey('enter')
     speak(jarvis_message)
 
-import google.generativeai as genai
+# import google.generativeai as genai
+# from google import genai
+# def geminai(query):
+#     try:
+#         query = query.replace(ASSISTANT_NAME, "")
+#         query = query.replace("search", "")
+#         #Set your API key
+#         genai.configure(api_key=LLM_KEY)
+
+#         #select a model
+        # model = genai.GenerativeModel("gemini-3.1-flash-lite-preview")
+        # model = genai.GenerativeModel("gemini-2.5-flash-lite")
+
+#         #Generate a response
+#         response = model.generate_content(query)
+#         filter_text = markdown_to_text(response.text)
+#         speak(filter_text)
+#     except Exception as e:
+#         print("Error:", e)
+
+from google import genai
+
 def geminai(query):
     try:
         query = query.replace(ASSISTANT_NAME, "")
         query = query.replace("search", "")
-        #Set your API key
-        genai.configure(api_key=LLM_KEY)
 
-        #select a model
-        model = genai.GenerativeModel("gemini-2.5-flash-lite")
+        client = genai.Client(api_key=LLM_KEY)
 
-        #Generate a response
-        response = model.generate_content(query)
+        response = client.models.generate_content(
+            # model="gemini-3.1-flash-lite-preview",
+            model="gemini-2.5-flash-lite",
+            contents=query
+        )
         filter_text = markdown_to_text(response.text)
         speak(filter_text)
+
     except Exception as e:
         print("Error:", e)
 
