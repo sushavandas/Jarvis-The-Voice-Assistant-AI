@@ -201,8 +201,9 @@ def geminai(query):
         client = genai.Client(api_key=LLM_KEY)
 
         response = client.models.generate_content(
-            # model="gemini-3.1-flash-lite-preview",
-            model="gemini-2.5-flash-lite",
+            # model="gemini-3.5-flash-lite-preview",
+            model="gemini-3.1-flash-lite-preview",
+            # model="gemini-2.5-flash-lite",
             contents=query
         )
         filter_text = markdown_to_text(response.text)
