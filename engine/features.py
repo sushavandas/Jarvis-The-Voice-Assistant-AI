@@ -138,12 +138,12 @@ def whatsApp(mobile_no, message, flag, name):
         jarvis_message = "Message sent successfully to " + name
 
     elif flag == 'call':
-        target_tab = 12 #ok
+        target_tab = 14 #ok
         message = ''
         jarvis_message = "Calling " + name
 
     else:
-        target_tab = 11#ok
+        target_tab = 13#ok
         message = ''
         jarvis_message = "Starting video call with " + name
 
