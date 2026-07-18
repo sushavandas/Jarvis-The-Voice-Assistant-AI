@@ -2,7 +2,8 @@ from sys import flags
 import time
 import cv2
 import pyautogui as p
-
+from engine.helper import resource_path
+import os
 
 def AuthenticateFace():
 
@@ -10,8 +11,28 @@ def AuthenticateFace():
     # Local Binary Patterns Histograms
     recognizer = cv2.face.LBPHFaceRecognizer_create()
 
-    recognizer.read('engine\\auth\\trainer\\trainer.yml')  # load trained model
-    cascadePath = "engine\\auth\\haarcascade_frontalface_default.xml"
+    # recognizer.read('engine\\auth\\trainer\\trainer.yml')  # load trained model
+    # cascadePath = "engine\\auth\\haarcascade_frontalface_default.xml"
+
+    trainer_path = resource_path(
+        "engine/auth/trainer/trainer.yml"
+    )
+
+    cascade_path = resource_path(
+        "engine/auth/haarcascade_frontalface_default.xml"
+    )
+
+    if not os.path.exists(trainer_path):
+        raise FileNotFoundError(trainer_path)
+
+    if not os.path.exists(cascade_path):
+        raise FileNotFoundError(cascade_path)
+
+
+    recognizer.read(trainer_path)  # load trained model
+    cascadePath = cascade_path
+
+    
     # initializing haar cascade for object detection approach
     faceCascade = cv2.CascadeClassifier(cascadePath)
 

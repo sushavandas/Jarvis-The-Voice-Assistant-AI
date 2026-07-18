@@ -378,6 +378,33 @@ $(document).ready(function () {
 
     });
 
+    // config save button
+    $("#configSaveBtn").click(function () {
+
+        let LLMAPIKey = $("#LLMAPIKey").val();
+
+        if (LLMAPIKey.length > 0) {
+            eel.updateAPIKey(LLMAPIKey)
+            swal({
+                title: "Updated Successfully",
+                icon: "success",
+            });
+        }
+        else {
+            const toastLiveExample = document.getElementById('liveToast')
+            const toast = new bootstrap.Toast(toastLiveExample)
+            $("#ToastMessage").text("API Key is Madatory");
+            toast.show()
+        }   
+    });
+
+
+    // load api key function
+    eel.expose(loadAPIKey)
+    function loadAPIKey(api_key) {
+        $("#LLMAPIKey").val(api_key);
+    }
+
 
 
 

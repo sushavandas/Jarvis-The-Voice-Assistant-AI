@@ -8,27 +8,33 @@ import pywhatkit as kit
 import re
 import webbrowser
 import sqlite3
-from engine.helper import extract_yt_term
+from engine.helper import extract_yt_term, markdown_to_text, remove_words, get_db_path, resource_path, fix_porcupine_dll_path
 import pvporcupine
 import pyaudio
 import struct
 import time
-from engine.helper import extract_yt_term, markdown_to_text ,remove_words
 from shlex import quote
 import subprocess
 import pyautogui
-from engine.config import ASSISTANT_NAME, LLM_KEY
+from engine import helper
+import sys
+from engine.config import ASSISTANT_NAME
 
 
 # Playing assiatnt sound function
 
-con = sqlite3.connect("jarvis.db")
+con = sqlite3.connect(get_db_path())
+# con = sqlite3.connect("jarvis.db")
 cursor = con.cursor()
 
 @eel.expose
 def playAssistantSound():
-    music_dir = "www\\assets\\audio\\start_sound.mp3"
-    playsound(music_dir)
+    # music_dir = "www\\assets\\audio\\start_sound.mp3"
+    # playsound(music_dir)
+    sound_path = resource_path(
+        "www/assets/audio/start_sound.mp3"
+    )
+    playsound(sound_path)
 
 def openCommand(query):
     query = query.replace(ASSISTANT_NAME, "")
@@ -71,14 +77,18 @@ def PlayYoutube(query):
     speak("Playing "+search_term+" on YouTube")
     kit.playonyt(search_term)
 
+keyword_path = resource_path(
+    "pvporcupine/resources/keyword_files/windows/jarvis_windows.ppn"
+)   
+
 def hotword():
     porcupine=None
     paud=None
     audio_stream=None
     try:
-       
+        fix_porcupine_dll_path()
         # pre trained keywords    
-        porcupine=pvporcupine.create(keywords=["jarvis","alexa"]) 
+        porcupine = pvporcupine.create(keyword_paths=[keyword_path])
         paud=pyaudio.PyAudio()
         audio_stream=paud.open(rate=porcupine.sample_rate,channels=1,format=pyaudio.paInt16,input=True,frames_per_buffer=porcupine.frame_length)
         
@@ -102,13 +112,10 @@ def hotword():
                 autogui.keyUp("win")
 
                 
-    except:
-        if porcupine is not None:
-            porcupine.delete()
-        if audio_stream is not None:
-            audio_stream.close()
-        if paud is not None:
-            paud.terminate()
+    except Exception as e:
+        print("🔥 Hotword error:", e)
+        import traceback
+        traceback.print_exc()
 
 # find contacts
 def findContact(query):
@@ -195,6 +202,7 @@ from google import genai
 
 def geminai(query):
     try:
+        LLM_KEY = cursor.execute("SELECT api_key FROM config").fetchone()[0]
         query = query.replace(ASSISTANT_NAME, "")
         query = query.replace("search", "")
 
@@ -211,33 +219,6 @@ def geminai(query):
 
     except Exception as e:
         print("Error:", e)
-
-# from openrouter import OpenRouter
-# from engine.helper import markdown_to_text
-# from engine.config import LLM_KEY   # Your OpenRouter API key
-# from engine.command import speak
-
-# def geminai(query):
-#     try:
-#         query = query.replace(ASSISTANT_NAME, "")
-#         query = query.replace("search", "")
-
-#         client = OpenRouter(api_key=LLM_KEY)
-
-#         response = client.chat.send(
-#             model="qwen/qwen-2.5-7b-instruct",  
-#             messages=[
-#                 {"role": "user", "content": query}
-#             ]
-#         )
-
-#         ai_reply = response.choices[0].message.content
-#         clean_text = markdown_to_text(ai_reply)
-#         speak(clean_text)
-
-#     except Exception as e:
-#         print("AI Error:", e)
-#         speak("Sorry, I am unable to process your request right now.")
 
 
 #android automation
@@ -386,4 +367,39 @@ def InsertContacts(Name, MobileNo, Email, City):
     cursor.execute(
         '''INSERT INTO contacts VALUES (?, ?, ?, ?, ?)''', (None,Name, MobileNo, Email, City))
     con.commit()
+
+
+@eel.expose
+def updateAPIKey(api_key):
+    cursor.execute("SELECT COUNT(*) FROM config")
+    count = cursor.fetchone()[0]
+    if count > 0:
+        # Update existing record
+        cursor.execute(
+            '''UPDATE config 
+               SET api_key=?''',
+            (api_key,)
+        )
+    else:
+        # Insert new record if no data exists
+        cursor.execute(
+            '''INSERT INTO config (api_key) 
+               VALUES (?)''',
+            (api_key,)
+        )
+
+    con.commit()
+    return 1
+
+@eel.expose
+def getAPIKey():
+    try:
+        cursor.execute("SELECT api_key FROM config")
+        results = cursor.fetchall()
+        api_key = results[0][0]
+        eel.loadAPIKey(api_key)
+        return api_key  
+    except:
+        print("no data")
+        return ""   
 

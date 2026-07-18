@@ -4,6 +4,7 @@ import eel
 from engine.features import *
 from engine.command import *
 from engine.auth import recoganize
+from engine.helper import resource_path
 def start():
     
     eel.init("www")
@@ -11,7 +12,8 @@ def start():
     playAssistantSound()
     @eel.expose
     def init():
-        subprocess.call([r'device.bat'])
+        bat_path = resource_path("device.bat")
+        subprocess.call(["cmd", "/c", bat_path], shell=False)
         eel.hideLoader()
         speak("Ready for Face Authentication")
         flag = recoganize.AuthenticateFace()
@@ -27,3 +29,11 @@ def start():
     os.system('start msedge.exe --app="http:/localhost:8000/index.html"')
 
     eel.start('index.html', mode=None, host='localhost', block = True)
+
+    eel.start(
+        'index.html',
+        mode='chrome',
+        app_mode=True,
+        port=0,
+        block=True,
+    )
